@@ -1,35 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        canvas {
-            border:1px solid #d3d3d3;
-            background-color: #f1f1f1;
-        }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
 </head>
 <body onload="startGame()">
-    <canvas id="myCanvas" width="800" height="500"></canvas>
-    <script>
-        var centerX = myCanvas.width / 2;
-        var centerY = myCanvas.height / 2;
-        var context = myCanvas.getContext('2d');
+<script>
 
-        function startGame() {
-            myGamePiece = new component(centerX, centerY, 20, 0, 2 * Math.PI, false);
-        }
+var myGamePiece;
 
-        function component(x, y, radius, sAngle, eAngle, counterclockwise) {
-            this.radius = radius;
-            context.beginPath();
-            context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-            context.fillStyle = 'red';
-            context.fill();
-        }
-    </script>
+function startGame() {
+    myGamePiece = new component(20, 0, 2*Math.PI, false, 10, 120, "red");
+    myGameArea.start();
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        this.canvas.width = 800;
+        this.canvas.height = 500;
+        this.context = this.canvas.getContext("2d");
+        document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateGameArea, 20);
+    },
+    clear : function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+function component(radius, sAngle, eAngle, counterclockwise, x, y, color) {
+    this.radius = radius;
+    this.sAngle = sAngle;
+    this.eAngle = eAngle;
+    this.counterclockwise = counterclockwise;
+    this.x = x;
+    this.y = y;    
+    this.update = function(){
+        ctx = myGameArea.context;
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.arc(this.radius, this.sAngle, this.eAngle, this.counterclockwise, this.x, this.y);
+    }
+}
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGamePiece.update();
+}
+</script>
 </body>
 </html>
