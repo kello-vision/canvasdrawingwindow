@@ -8,10 +8,10 @@ canvas {
     background-color: #D7DADE;
 }
 body{
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
 }
 </style>
-<title>CanvasDrawingWindow</title>
+<title>Canvas</title>
 </head>
 <body onload="startGame()">
     <script>
@@ -80,14 +80,14 @@ body{
                     myBrush.radius -= 5;}
             // RADIUS INCREASE
             if (myGameArea.key && myGameArea.key == 38) 
-                {if (myBrush.radius < 50)
+                {if (myBrush.radius < 30)
                     myBrush.radius += 5;}
             // CLEAR SCREEN
             if (myGameArea.key && myGameArea.key == 32) {myGameArea.clear(); }
             myBrush.update();
         }
     </script>
-    <h1>Move the cursor inside the 800x450 pixel canvas to move a colored pen.</h1> 
+    <h1>Move the cursor inside the 800x500 pixel canvas to move a colored pen.</h1> 
     <h2>Occasionally, you will need to click inside the canvas for the canvas controls to work.</h2>
     <h3>You can alternate colors by hitting "b" for blue, "g" for green, "r" for red, and "y" for yellow.</h3>
     <h3>You can also increase and decrease the circle size by using the up (larger) and down (smaller) arrow keys.</h3> 
